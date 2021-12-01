@@ -22,21 +22,21 @@ export default function Compendium() {
     useEffect(() => {
       const getPokemon = async () => {
         const pokemonList = await fetchPokemon();
-         this.setState({pokemons: pokemonList});
+         setPokemons({pokemons: pokemonList});
         setLoading(false);
       };
       getPokemon();
-    }, [pokemons]);
+    }, []);
   }
 
-  //TODO 😖 help!
-  //   useEffect(async () => {
-  //      function getTypes() {
-  //       const pokemonTypes = fetchTypes();
-  //       setTypes(pokemonTypes);
-  //     }
-  //     getTypes();
-  //   }, []);
+  TODO
+    useEffect(() => {
+       async function getTypes() {
+        const pokemonTypes = await fetchTypes();
+        setTypes(pokemonTypes);
+      }
+      getTypes();
+    }, []);
 
   //TODO 😖 help!
   // useEffect(() => {
