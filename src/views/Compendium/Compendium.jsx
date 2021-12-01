@@ -1,84 +1,85 @@
-import {useState, useEffect} from 'react';
-import PokemonList from '../../components/PokemonList/PokemonList';
+import { useState, useEffect } from "react";
+import PokemonList from "../../components/PokemonList/PokemonList";
 import {
   fetchFilteredPokemon,
   fetchPokemon,
   fetchSearchPokemon,
   fetchTypes,
-} from '../../services/pokemon';
-import './Compendium.css';
-import Controls from '../../components/Controls/Controls';
-import pokeball from '../../assets/pokeball.png';
+} from "../../services/pokemon";
+import "./Compendium.css";
+import Controls from "../../components/Controls/Controls";
+import pokeball from "../../assets/pokeball.png";
 
 export default function Compendium() {
   const [loading, setLoading] = useState(true);
   const [pokemons, setPokemons] = useState([]);
-  const [searchName, setSearchName] = useState('');
+  const [searchName, setSearchName] = useState("");
   const [types, setTypes] = useState([]);
-  const [selectedType, setSelectedType] = useState('all');
+  const [selectedType, setSelectedType] = useState("all");
 
-  TODO 
-  if (pokemons.count !== 0) {
+  // TODO;
+  if (pokemons.count === 0) {
     useEffect(() => {
-      const getPokemon = async () => {
+      async function getPokemon() {
         const pokemonList = await fetchPokemon();
-         setPokemons({pokemons: pokemonList});
+        setPokemons(pokemonList);
         setLoading(false);
-      };
+      }
       getPokemon();
     }, []);
   }
 
-  TODO
-    useEffect(() => {
-       async function getTypes() {
-        const pokemonTypes = await fetchTypes();
-        setTypes(pokemonTypes);
+  // TODO;
+  useEffect(() => {
+    async function getTypes() {
+      const pokemonTypes = await fetchTypes();
+      setTypes(pokemonTypes);
+    }
+    getTypes();
+  }, []);
+
+  // TODO;
+  useEffect(() => {
+    if (!selectedType) return;
+
+    async function getFilteredPokemon() {
+      setLoading(true);
+
+      if (selectedType === "all") {
+        const pokemonList = await fetchFilteredPokemon(selectedType);
+        setPokemons(pokemonList);
+      } else {
+        const getFilteredPokemon = await fetchPokemon();
+        setPokemons(getFilteredPokemon);
       }
-      getTypes();
-    }, []);
+      setLoading(false);
+      setSelectedType(selectedType);
+    }
 
-  //TODO 😖 help!
-  // useEffect(() => {
-  //   async function getFilteredPokemon() {
-  //     if (!selectedType) return;
-  //     setLoading(true);
-
-  //     if (selectedType !== 'all') {
-  //       const filteredPokemon = await fetchFilteredPokemon(selectedType);
-  //       setPokemons(filteredPokemon);
-  //     } else {
-  //       const pokemonList = await fetchPokemon();
-  //       this.setState({pokemons: pokemonList});
-  //     }
-  //     setLoading(false);
-  //     setSort('');
-  //   }
-
-  //   getFilteredPokemon();
-  // }, [selectedType]);
+    getFilteredPokemon();
+  }, [selectedType]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     setLoading(true);
     fetchSearchPokemon(searchName)
       .then((searchedPokemons) => {
-        this.setState({pokemons: searchedPokemons});
+        setPokemons(searchedPokemons);
       })
       .catch((error) => {})
       .finally(() => {
         setLoading(false);
-        setSearchName('');
-        setSelectedType('');
+        setSearchName("");
+        setSelectedType("");
       });
   };
 
   return (
-    <div className='app'>
+    <div className="app">
       <main>
-        <div className='title'>
-          <img src={pokeball} alt='pokeball' />
-          <h1 className='titleText'>Alchemy Compendium</h1>
+        <div className="title">
+          <img src={pokeball} alt="pokeball" />
+          <h1 className="titleText">Alchemy Compendium</h1>
         </div>
         <Controls
           name={searchName}
