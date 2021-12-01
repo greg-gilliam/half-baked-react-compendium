@@ -38,3 +38,4 @@ You'll start in the `Compendium.jsx` file to begin fixing the issues.
 | Find the 3 places state is being updated incorrectly                                 | 2      |
 | Identify the 1 `useEffect` hook being called conditionally                           | 1      |
 # half-baked-react-compendium-
+# half-baked-react-compendium-
