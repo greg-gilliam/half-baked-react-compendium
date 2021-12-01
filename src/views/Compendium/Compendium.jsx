@@ -17,17 +17,17 @@ export default function Compendium() {
   const [types, setTypes] = useState([]);
   const [selectedType, setSelectedType] = useState('all');
 
-  //TODO 😖 help!
-  // if (pokemons.count !== 0) {
-  //   useEffect(() => {
-  //     const getPokemon = async () => {
-  //       const pokemonList = await fetchPokemon();
-  //        this.setState({pokemons: pokemonList});
-  //       setLoading(false);
-  //     };
-  //     getPokemon();
-  //   }, [pokemons]);
-  // }
+  TODO 
+  if (pokemons.count !== 0) {
+    useEffect(() => {
+      const getPokemon = async () => {
+        const pokemonList = await fetchPokemon();
+         this.setState({pokemons: pokemonList});
+        setLoading(false);
+      };
+      getPokemon();
+    }, [pokemons]);
+  }
 
   //TODO 😖 help!
   //   useEffect(async () => {
