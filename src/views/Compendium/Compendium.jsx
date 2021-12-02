@@ -18,16 +18,16 @@ export default function Compendium() {
   const [selectedType, setSelectedType] = useState("all");
 
   // TODO;
-  if (pokemons.count === 0) {
-    useEffect(() => {
-      async function getPokemon() {
-        const pokemonList = await fetchPokemon();
-        setPokemons(pokemonList);
-        setLoading(false);
-      }
-      getPokemon();
-    }, []);
-  }
+  // if (pokemons.count === 0) {
+  useEffect(() => {
+    async function getPokemon() {
+      const pokemonList = await fetchPokemon();
+      setPokemons(pokemonList);
+      setLoading(false);
+    }
+    getPokemon();
+  }, []);
+  // }
 
   // TODO;
   useEffect(() => {
@@ -40,17 +40,16 @@ export default function Compendium() {
 
   // TODO;
   useEffect(() => {
-    if (!selectedType) return;
-
     async function getFilteredPokemon() {
+      if (!selectedType) return;
       setLoading(true);
 
-      if (selectedType === "all") {
-        const pokemonList = await fetchFilteredPokemon(selectedType);
-        setPokemons(pokemonList);
+      if (selectedType !== "all") {
+        const filteredPokemon = await fetchFilteredPokemon(selectedType);
+        setPokemons(filteredPokemon);
       } else {
-        const getFilteredPokemon = await fetchPokemon();
-        setPokemons(getFilteredPokemon);
+        const pokemonList = await fetchPokemon();
+        setPokemons(pokemonList);
       }
       setLoading(false);
       setSelectedType(selectedType);

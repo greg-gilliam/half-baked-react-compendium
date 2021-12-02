@@ -10,7 +10,9 @@ export default function FilterForm({ types, filterChange, selectedType }) {
           All
         </option>
         {types.map(({ type }) => (
-          <option value={type}>{type}</option>
+          <option key={type} value={type}>
+            {type}
+          </option>
         ))}
       </select>
     </div>
