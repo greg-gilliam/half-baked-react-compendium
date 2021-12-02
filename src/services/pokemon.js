@@ -1,26 +1,26 @@
-import {pokeMunger} from '../utils/helpers';
+import { pokeMunger } from "../utils/helpers";
 
 const favPokemon = [
-  'charizard',
-  'typhlosion',
-  'blaziken',
-  'mewtwo',
-  'suicune',
-  'pidgeot',
-  'golduck',
-  'gardevoir',
-  'ninetales',
-  'houndoom',
+  "charizard",
+  "typhlosion",
+  "blaziken",
+  "mewtwo",
+  "suicune",
+  "pidgeot",
+  "golduck",
+  "gardevoir",
+  "ninetales",
+  "houndoom",
 ];
 
 export const fetchPokemon = async () => {
   const pokemonList = await Promise.all(
     favPokemon.map(async (fav) => {
-      const fetchedPokemon = await fetch(
+      const response = await fetch(
         `https://pokedex-alchemy.herokuapp.com/api/pokedex?pokemon=${fav}`
       );
 
-      const pokemonData = await fetchedPokemon.json();
+      const pokemonData = await response.json();
 
       // Need to filter mega pokemon
       if (pokemonData.count > 1) {
@@ -43,24 +43,26 @@ export const fetchSearchPokemon = (pokemonName) => {
   )
     .then((data) => data.json())
     .then((pokemonData) => {
-      const {results} = pokemonData;
+      const { results } = pokemonData;
       const pokemonResults = results.map((pokemon) => pokeMunger(pokemon));
       return pokemonResults;
     });
 };
 
-export const fetchTypes = async () => {
-  const res = fetch(`https://pokedex-alchemy.herokuapp.com/api/pokedex/types`);
+export async function fetchTypes() {
+  const res = await fetch(
+    `https://pokedex-alchemy.herokuapp.com/api/pokedex/types`
+  );
 
-  const pokemonTypes = res.json();
+  const pokemonTypes = await res.json();
 
   // get random types
   const randomTypes = pokemonTypes
-    .map((pokemonType) => ({type: pokemonType.type}))
+    .map((pokemonType) => ({ type: pokemonType.type }))
     .sort(() => 0.5 - Math.random())
     .slice(0, 5);
   return randomTypes;
-};
+}
 
 export const fetchFilteredPokemon = async (type) => {
   const res = await fetch(

@@ -12,5 +12,5 @@ export default function SearchForm({ name, handleSubmit, handleNameChange }) {
       />
       <button type="submit">PokeSearch!</button>
     </form>
-  )
+  );
 }
